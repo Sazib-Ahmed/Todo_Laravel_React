@@ -42,6 +42,6 @@ class SignupRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         // send error message
-        Helper::sendError('validation error',$validator->errors());
+        Helper::sendError('Please try again!!!',$validator->errors());
     }
 }

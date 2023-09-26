@@ -37,7 +37,7 @@ class LoginRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         // send error message
-        Helper::sendError('validation error',$validator->errors());
+        Helper::sendError('Email Or Password is wroing !!!',$validator->errors());
     }
 
 

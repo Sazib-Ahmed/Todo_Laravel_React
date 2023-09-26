@@ -40,8 +40,14 @@ export default function AdminLayout() {
           </div>
 
           <div>
-            {user.name} &nbsp; &nbsp;
-            <a onClick={onLogout} className="btn-logout" href="#">Logout</a>
+            {user && user.name && (
+              <>
+                {user.name} &nbsp; &nbsp;
+                <a onClick={onLogout} className="btn-logout" href="#">
+                  Logout
+                </a>
+              </>
+            )}
           </div>
         </header>
         <main>
