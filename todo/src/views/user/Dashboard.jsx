@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
-import axiosClient from "../axios-client.js";
+import axiosClient from "../../axios-client.js";
 import {Link} from "react-router-dom";
-import {useStateContext} from "../context/ContextProvider.jsx";
+import {useStateContext} from "../../context/ContextProvider.jsx";
 
-export default function Users() {
+export default function Dashboard() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const {setNotification} = useStateContext()
@@ -38,7 +38,7 @@ export default function Users() {
   return (
     <div>
       <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
-        <h1>Users</h1>
+        <h1>User Dashboard</h1>
         <Link className="btn-add" to="/users/new">Add new</Link>
       </div>
       <div className="card animated fadeInDown">
@@ -55,7 +55,7 @@ export default function Users() {
           {loading &&
             <tbody>
             <tr>
-              <td colSpan="5" className="text-center">
+              <td colSpan="5" class="text-center">
                 Loading...
               </td>
             </tr>
