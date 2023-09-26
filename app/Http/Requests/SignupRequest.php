@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Helpers\Helper;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class SignupRequest extends FormRequest
 {
@@ -36,5 +38,10 @@ class SignupRequest extends FormRequest
                     ->numbers()
             ]
         ];
+    }
+    public function failedValidation(Validator $validator)
+    {
+        // send error message
+        Helper::sendError('validation error',$validator->errors());
     }
 }

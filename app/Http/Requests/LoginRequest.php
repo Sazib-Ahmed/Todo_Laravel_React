@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use App\Http\Helpers\Helper;
+
 
 class LoginRequest extends FormRequest
 {
@@ -31,4 +34,11 @@ class LoginRequest extends FormRequest
             'remember' => 'boolean'
         ];
     }
+    public function failedValidation(Validator $validator)
+    {
+        // send error message
+        Helper::sendError('validation error',$validator->errors());
+    }
+
+
 }
