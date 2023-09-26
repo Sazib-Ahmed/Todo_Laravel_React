@@ -6,14 +6,14 @@ import UserDashboard from "./pages/user/UserDashboard";
 import Admin from "./pages/admin/Admin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import NotFound from "./pages/NotFound";
-import GuestLayout from "./components/GuestLayout";
 import UserLayout from "./components/UserLayout";
 import AdminLayout from "./components/AdminLayout";
+import DefaultLayout from "./components/DefaultLayout";
 
 const router = createBrowserRouter ([
   {
     path: "/",
-    element: <GuestLayout/>,
+    element: <DefaultLayout/>,
     children: [
       {
         path: "/login",
@@ -32,7 +32,7 @@ const router = createBrowserRouter ([
     children: [
       {
         path: "/user",
-        element: <User/>
+        element: <UserDashboard/>
       },
       {
         path: "/dashboard",
@@ -48,7 +48,7 @@ const router = createBrowserRouter ([
     children: [
       {
         path: "/admin",
-        element: <Admin/>
+        element: <AdminDashboard/>
       },
       {
         path: "/dashboard",
