@@ -34,25 +34,73 @@ export default function Signup() {
   }
 
   return (
-    <div className="login-signup-form animated fadeInDown">
-      <div className="form">
-        <form onSubmit={onSubmit}>
-          <h1 className="title">Signup for Free</h1>
-          {errors &&
-            <div className="alert">
-              {Object.keys(errors).map(key => (
-                <p key={key}>{errors[key][0]}</p>
-              ))}
-            </div>
-          }
-          <input ref={nameRef} type="text" placeholder="Full Name"/>
-          <input ref={emailRef} type="email" placeholder="Email Address"/>
-          <input ref={passwordRef} type="password" placeholder="Password"/>
-          <input ref={passwordConfirmationRef} type="password" placeholder="Repeat Password"/>
-          <button className="btn btn-block">Signup</button>
-          <p className="message">Already registered? <Link to="/login">Sign In</Link></p>
-        </form>
-      </div>
+    <div className="wrapper">
+    <div className="logo">
+      <img
+        src="../../public/todo.png"
+        alt="Todo"
+      />
     </div>
+    <div className="text-center mt-4 name">Sign Up</div>
+    {errors && (
+      <div className="alert alert-danger">
+        {Object.keys(errors).map(key => (
+          <p key={key}>{errors[key][0]}</p>
+        ))}
+      </div>
+    )}
+    <form className="p-3 mt-3" onSubmit={onSubmit}>
+      <div className="form-field d-flex align-items-center">
+        <span className="far fa-user"></span>
+        <input
+          type="text"
+          name="fullName"
+          id="fullName"
+          placeholder="Full Name"
+          ref={nameRef}
+          className="form-control" // Bootstrap class
+        />
+      </div>
+      <div className="form-field d-flex align-items-center">
+        <span className="far fa-envelope"></span>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email Address"
+          ref={emailRef}
+          className="form-control" // Bootstrap class
+        />
+      </div>
+      <div className="form-field d-flex align-items-center">
+        <span className="fas fa-key"></span>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          ref={passwordRef}
+          className="form-control" // Bootstrap class
+        />
+      </div>
+      <div className="form-field d-flex align-items-center">
+        <span className="fas fa-key"></span>
+        <input
+          type="password"
+          name="passwordConfirmation"
+          id="passwordConfirmation"
+          placeholder="Repeat Password"
+          ref={passwordConfirmationRef}
+          className="form-control" // Bootstrap class
+        />
+      </div>
+      <button className="btn btn-primary mt-3" type="submit">
+        Sign Up
+      </button>
+    </form>
+    <div className="text-center fs-6">
+      Already registered? <Link to="/login">Login</Link>
+    </div>
+  </div>
   )
 }
