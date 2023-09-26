@@ -4,12 +4,12 @@ import {useStateContext} from "../context/ContextProvider";
 //import {useEffect} from "react";
 
 export default function UserLayout() {
-  const {user, token} = useStateContext();
-  if (!token) {
-  //if (!token ) {
+  // const {user, token} = useStateContext();
+  // if (!token) {
+  // //if (!token ) {
 
-    return <Navigate to="/login"/>
-  }
+  //   return <Navigate to="/login"/>
+  // }
 
   return (
     <div>
