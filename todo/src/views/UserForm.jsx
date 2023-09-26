@@ -1,10 +1,9 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import axiosClient from "../../axios-client.js";
-import {useStateContext} from "../../context/ContextProvider.jsx";
+import axiosClient from "../axios-client.js";
+import {useStateContext} from "../context/ContextProvider.jsx";
 
-
-export default function AdminDashboard() {
+export default function UserForm() {
   const navigate = useNavigate();
   let {id} = useParams();
   const [user, setUser] = useState({
