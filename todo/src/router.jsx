@@ -1,29 +1,35 @@
 import {createBrowserRouter, Navigate} from "react-router-dom";
-import Dashboard from "./Dashboard.jsx";
-import DefaultLayout from "./components/DefaultLayout";
+import AdminDashboard from "./views/admin/Dashboard.jsx";
+import UserDashboard from "./views/todo/Todos.jsx";
+import TodoForm from "./views/todo/TodoForm";
+import AllUsers from "./views/admin/Users.jsx";
+import AdminLayout from "./components/AdminLayout";
 import GuestLayout from "./components/GuestLayout";
+import UserLayout from "./components/UserLayout";
 import Login from "./views/Login";
 import NotFound from "./views/NotFound";
 import Signup from "./views/Signup";
-import Users from "./views/Users";
 import UserForm from "./views/UserForm";
 
+
+
 const router = createBrowserRouter([
+
   {
     path: '/',
-    element: <DefaultLayout/>,
+    element: <AdminLayout/>,
     children: [
       {
         path: '/',
-        element: <Navigate to="/users"/>
+        element: <Navigate to="/admin/dashboard"/>
       },
       {
-        path: '/dashboard',
-        element: <Dashboard/>
+        path: '/admin/dashboard',
+        element: <AdminDashboard/>
       },
       {
-        path: '/users',
-        element: <Users/>
+        path: '/admin/users',
+        element: <AllUsers/>
       },
       {
         path: '/users/new',
@@ -33,12 +39,51 @@ const router = createBrowserRouter([
         path: '/users/:id',
         element: <UserForm key="userUpdate" />
       }
+      ,
+      {
+        path: '/admin/todos',
+        element: <UserDashboard/>
+      }
+    ]
+  },
+  {
+    path: '/',
+    element: <UserLayout/>,
+    children: [
+      {
+        path: '/',
+        element: <Navigate to="/users/dashboard"/>
+      },
+      {
+        path: '/user/dashboard',
+        element: <UserDashboard/>
+      },
+      {
+        path: 'user/users/new',
+        element: <UserForm key="userCreate" />
+      },
+      {
+        path: 'user/users/:id',
+        element: <UserForm key="userUpdate" />
+      },
+      {
+        path: 'user/:id/todos/new',
+        element: <TodoForm key="todoCreate" />
+      },
+      {
+        path: 'user/:id/todos/:id',
+        element: <TodoForm key="todoUpdate" />
+      }
     ]
   },
   {
     path: '/',
     element: <GuestLayout/>,
     children: [
+      {
+        path: '/',
+        element: <Login/>
+      },
       {
         path: '/login',
         element: <Login/>
@@ -49,6 +94,7 @@ const router = createBrowserRouter([
       }
     ]
   },
+
   {
     path: "*",
     element: <NotFound/>

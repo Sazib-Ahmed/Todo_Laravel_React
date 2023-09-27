@@ -3,10 +3,10 @@ import {useStateContext} from "../context/ContextProvider";
 import axiosClient from "../axios-client.js";
 import {useEffect} from "react";
 
-export default function DefaultLayout() {
-  const {user, token, setUser, setToken, notification} = useStateContext();
+export default function AdminLayout() {
+  const {id, user, roles, setRole, token, setUser, setToken, notification} = useStateContext();
 
-  if (!token) {
+  if (!token || !roles === "admin") {
     return <Navigate to="/login"/>
   }
 
@@ -29,19 +29,25 @@ export default function DefaultLayout() {
 
   return (
     <div id="defaultLayout">
-      <aside>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/users">Users</Link>
-      </aside>
       <div className="content">
         <header>
           <div>
-            Header
+            <h1>Admin Panel</h1>
           </div>
 
           <div>
-            {user.name} &nbsp; &nbsp;
-            <a onClick={onLogout} className="btn-logout" href="#">Logout</a>
+            {user && user.name && (
+              <>
+                {user.name} &nbsp; &nbsp;
+
+                <Link to="admin/dashboard">Dashboard</Link>
+                 <Link to="admin/users">Users</Link>
+                 <Link to="admin/todos">Todos</Link>
+                <a onClick={onLogout} className="btn-logout" href="#">
+                  Logout
+                </a>
+              </>
+            )}
           </div>
         </header>
         <main>
