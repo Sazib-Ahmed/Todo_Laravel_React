@@ -39,6 +39,11 @@ const router = createBrowserRouter([
         path: '/users/:id',
         element: <UserForm key="userUpdate" />
       }
+      ,
+      {
+        path: '/admin/todos',
+        element: <UserDashboard/>
+      }
     ]
   },
   {

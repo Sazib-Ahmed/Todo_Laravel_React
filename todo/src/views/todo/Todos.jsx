@@ -40,7 +40,7 @@ export default function Todos() {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
-        <h1>Todos for User {userId}</h1>
+        <h2>Todo List of User ID: {userId}</h2>
         <Link className="btn-add" to={`/user/${userId}/todos/new`}>Add New</Link>
       </div>
       <div className="card animated fadeInDown">

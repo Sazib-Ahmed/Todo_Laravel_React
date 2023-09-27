@@ -30,18 +30,16 @@ export default function UserLayout() {
 
   return (
     <div id="defaultLayout">
-      <aside>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/users">Users</Link>
-      </aside>
       <div className="content">
         <header>
           <div>
-            User Panel
+          <h1>User Panel</h1>
           </div>
 
           <div>
             {user?.name} &nbsp; &nbsp;
+            <Link className="btn-logout" to="user/dashboard">Dashboard</Link>
+             <Link className="btn-logout" to={'/user/users/'+{id}}>Profile</Link>
             <a onClick={onLogout} className="btn-logout" href="#">Logout</a>
           </div>
         </header>

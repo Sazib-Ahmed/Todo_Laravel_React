@@ -7,7 +7,6 @@ export default function AdminLayout() {
   const {id, user, roles, setRole, token, setUser, setToken, notification} = useStateContext();
 
   if (!token || !roles === "admin") {
-    debugger;
     return <Navigate to="/login"/>
   }
 
@@ -30,20 +29,20 @@ export default function AdminLayout() {
 
   return (
     <div id="defaultLayout">
-      <aside>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/users">Users</Link>
-      </aside>
       <div className="content">
         <header>
           <div>
-            Admin Panel
+            <h1>Admin Panel</h1>
           </div>
 
           <div>
             {user && user.name && (
               <>
                 {user.name} &nbsp; &nbsp;
+
+                <Link to="admin/dashboard">Dashboard</Link>
+                 <Link to="admin/users">Users</Link>
+                 <Link to="admin/todos">Todos</Link>
                 <a onClick={onLogout} className="btn-logout" href="#">
                   Logout
                 </a>
