@@ -6,20 +6,22 @@ const StateContext = createContext({
   token: null,
   roles: null,
   notification: null,
+  user: {},
   setUser: () => {},
   setId: () => {},
   setToken: () => {},
   setRole: () => {},
   setNotification: () => {},
+  setTodo: () => {}, // Add setTodo function
 });
 
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  // Initialize id from localStorage or set it to null if not found
   const [id, _setId] = useState(localStorage.getItem('USER_ID') || null);
   const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN') || null);
   const [roles, _setRole] = useState(localStorage.getItem('USER_ROLE') || null);
   const [notification, _setNotification] = useState('');
+  const [todo, setTodo] = useState({}); // Add todo state
 
   const setId = (id) => {
     _setId(id);
@@ -69,6 +71,8 @@ export const ContextProvider = ({ children }) => {
         setRole,
         notification,
         setNotification,
+        todo,
+        setTodo,
       }}
     >
       {children}

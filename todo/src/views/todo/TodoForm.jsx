@@ -7,10 +7,10 @@ export default function TodoForm() {
   const navigate = useNavigate();
   let { id } = useParams();
   const [todo, setTodo] = useState({
-    userId: id, // Set userId to id
+    id: null,
     title: '',
     description: '',
-    status: 'pending', // Set a default status
+    status: 'pending',
     due: ''
   });
   const [errors, setErrors] = useState(null);
@@ -37,7 +37,7 @@ export default function TodoForm() {
       axiosClient.put(`/todos/${todo.id}`, todo)
         .then(() => {
           setNotification('Todo was successfully updated');
-          navigate('/todos');
+          navigate('/user/todos');
         })
         .catch((err) => {
           const response = err.response;
@@ -46,10 +46,10 @@ export default function TodoForm() {
           }
         });
     } else {
-      axiosClient.post('/todos', todo)
+      axiosClient.post('/user/todos', todo)
         .then(() => {
           setNotification('Todo was successfully created');
-          navigate('/todos');
+          navigate('/user/todos');
         })
         .catch((err) => {
           const response = err.response;
@@ -61,73 +61,56 @@ export default function TodoForm() {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          {todo.id && <h1 className="mb-4">Update Todo: {todo.title}</h1>}
-          {!todo.id && <h1 className="mb-4">New Todo</h1>}
-          <div className="card">
-            {loading && (
-              <div className="card-body text-center">Loading...</div>
-            )}
-            {errors && (
-              <div className="alert alert-danger">
-                {Object.keys(errors).map((key) => (
-                  <p key={key}>{errors[key][0]}</p>
-                ))}
-              </div>
-            )}
-            {!loading && (
-              <form className="card-body" onSubmit={onSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="title" className="form-label">Title</label>
-                  <input
-                    id="title"
-                    className="form-control"
-                    value={todo.title}
-                    onChange={(ev) => setTodo({ ...todo, title: ev.target.value })}
-                    placeholder="Title"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="description" className="form-label">Description</label>
-                  <input
-                    id="description"
-                    className="form-control"
-                    value={todo.description}
-                    onChange={(ev) => setTodo({ ...todo, description: ev.target.value })}
-                    placeholder="Description"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="status" className="form-label">Status</label>
-                  <select
-                    id="status"
-                    className="form-select"
-                    value={todo.status}
-                    onChange={(ev) => setTodo({ ...todo, status: ev.target.value })}
-                  >
-                    <option value="pending">Pending</option>
-                    <option value="completed">Completed</option>
-                  </select>
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="due" className="form-label">Due Date</label>
-                  <input
-                    id="due"
-                    className="form-control"
-                    type="date"
-                    value={todo.due}
-                    onChange={(ev) => setTodo({ ...todo, due: ev.target.value })}
-                    placeholder="Due Date"
-                  />
-                </div>
-                <button className="btn btn-primary">Save</button>
-              </form>
-            )}
+    <>
+      {todo.id && <h1>Update Todo: {todo.title}</h1>}
+      {!todo.id && <h1>New Todo</h1>}
+      <div className="card animated fadeInDown">
+        {loading && (
+          <div className="text-center">
+            Loading...
           </div>
-        </div>
+        )}
+        {errors &&
+          <div className="alert">
+            {Object.keys(errors).map(key => (
+              <p key={key}>{errors[key][0]}</p>
+            ))}
+          </div>
+        }
+        {!loading && (
+          <form onSubmit={onSubmit}>
+          <input
+            id="title"
+            value={todo.title}
+            onChange={(ev) => setTodo({ ...todo, title: ev.target.value })}
+            placeholder="Title"
+          />
+          <input
+            id="description"
+            value={todo.description}
+            onChange={(ev) => setTodo({ ...todo, description: ev.target.value })}
+            placeholder="Description"
+          />
+          <select
+            id="status"
+            value={todo.status}
+            onChange={(ev) => setTodo({ ...todo, status: ev.target.value })}
+          >
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
+          <input
+            id="due"
+            type="date"
+            value={todo.due}
+            onChange={(ev) => setTodo({ ...todo, due: ev.target.value })}
+            placeholder="Due Date"
+          />
+          <button className="btn">Save</button>
+        </form>
+
+        )}
       </div>
-    </div>
+    </>
   );
 }

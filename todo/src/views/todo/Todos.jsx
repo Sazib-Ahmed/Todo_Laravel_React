@@ -15,7 +15,7 @@ export default function Todos() {
   }, [userId]); // Trigger the effect when the `userId` changes
 
   const onDeleteClick = (todo) => {
-    if (!window.confirm("Are you sure you want to delete this todo?")) {
+    if (!window.confirm("Are you sure you completed this todo?")) {
       return;
     }
     axiosClient.delete(`/todos/${todo.id}`)
@@ -74,9 +74,9 @@ export default function Todos() {
                   <td>{todo.status}</td>
                   <td>{todo.due}</td>
                   <td>
-                    <Link className="btn-edit" to={`/users/${userId}/todos/${todo.id}`}>Edit</Link>
+                    <Link className="btn-edit" to={`/user/${userId}/todos/${todo.id}`}>Edit</Link>
                     &nbsp;
-                    <button className="btn-delete" onClick={(ev) => onDeleteClick(todo)}>Delete</button>
+                    <button className="btn-delete" onClick={(ev) => onDeleteClick(todo)}>Complete</button>
                   </td>
                 </tr>
               ))}

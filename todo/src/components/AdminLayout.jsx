@@ -7,6 +7,7 @@ export default function AdminLayout() {
   const {id, user, roles, setRole, token, setUser, setToken, notification} = useStateContext();
 
   if (!token || !roles === "admin") {
+    debugger;
     return <Navigate to="/login"/>
   }
 

@@ -16,4 +16,5 @@ class Todos extends Model
         'status',
         'due',
     ];
+    public $timestamps = true;
 }

@@ -8,6 +8,11 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const {setNotification} = useStateContext()
 
+  if (!token || !roles === "admin") {
+    debugger;
+    return <Navigate to="/login"/>
+  }
+
   useEffect(() => {
     getUsers();
   }, [])

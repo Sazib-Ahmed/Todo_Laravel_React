@@ -64,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: 'user/:id/todos/new',
         element: <TodoForm key="todoCreate" />
+      },
+      {
+        path: 'user/:id/todos/:id',
+        element: <TodoForm key="todoUpdate" />
       }
     ]
   },
