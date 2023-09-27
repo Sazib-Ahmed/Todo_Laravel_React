@@ -9,7 +9,7 @@ export default function Signup() {
   const emailRef = createRef();
   const passwordRef = createRef();
   const passwordConfirmationRef = createRef();
-  const { setUser, setToken } = useStateContext();
+  const { setUser, setToken, setRole, setId } = useStateContext();
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [message, setMessage] = useState(null);
@@ -29,6 +29,8 @@ export default function Signup() {
       .then(({ data }) => {
         setUser(data.user);
         setToken(data.token);
+        setRole(data.roles);
+        setId(data.id);
       })
       .catch((err) => {
         const response = err.response;

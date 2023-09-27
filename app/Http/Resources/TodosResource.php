@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class TodosResource extends JsonResource
 {
     public static $wrap = false;
 
@@ -17,13 +18,13 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
+            'userId' => $this->userId,
+            'title' => $this->title,
+            'description' => $this->description,
+            'status' => $this->status,
+            'due' => $this->due,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'token' => $this->createToken("Token")->plainTextToken,
-            'roles' => implode(', ', $this->roles->pluck('name')->toArray() ?? []),
-            'roles_permissions' => implode(', ', $this->getPermissionsViaRoles()->pluck('name')->toArray() ?? []),
-            'permissions' => implode(', ', $this->permissions->pluck('name')->toArray() ?? []),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 }

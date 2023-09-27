@@ -20,8 +20,6 @@ class UserSeeder extends Seeder
         $user_create = Permission::create(['name'=>'users.create']);
         $user_update = Permission::create(['name'=>'users.update']);
         $user_delete = Permission::create(['name'=>'users.delete']);
-
-
         $todo_list = Permission::create(['name'=>'todo.list']);
         $todo_view = Permission::create(['name'=>'todo.view']);
         $todo_create = Permission::create(['name'=>'todo.create']);

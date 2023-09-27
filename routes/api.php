@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Resources\UserResource;
+use App\Http\Controllers\Api\TodosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,14 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::apiResource('/users', UserController::class);
+
+
 });
+
+Route::resource('/todos', TodosController::class);
+Route::get('/todos/user/{userId}', [TodosController::class, 'showByUserId']);
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
+
+

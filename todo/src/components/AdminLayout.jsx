@@ -4,9 +4,9 @@ import axiosClient from "../axios-client.js";
 import {useEffect} from "react";
 
 export default function AdminLayout() {
-  const {user, token, setUser, setToken, notification} = useStateContext();
+  const {id, user, roles, setRole, token, setUser, setToken, notification} = useStateContext();
 
-  if (!token) {
+  if (!token || !roles === "admin") {
     return <Navigate to="/login"/>
   }
 

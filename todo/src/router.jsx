@@ -1,8 +1,8 @@
 import {createBrowserRouter, Navigate} from "react-router-dom";
 import AdminDashboard from "./views/admin/Dashboard.jsx";
-import UserDashboard from "./views/user/Dashboard.jsx";
+import UserDashboard from "./views/todo/Todos.jsx";
+import TodoForm from "./views/todo/TodoForm";
 import AllUsers from "./views/admin/Users.jsx";
-import DefaultLayout from "./components/DefaultLayout";
 import AdminLayout from "./components/AdminLayout";
 import GuestLayout from "./components/GuestLayout";
 import UserLayout from "./components/UserLayout";
@@ -11,7 +11,10 @@ import NotFound from "./views/NotFound";
 import Signup from "./views/Signup";
 import UserForm from "./views/UserForm";
 
+
+
 const router = createBrowserRouter([
+
   {
     path: '/',
     element: <AdminLayout/>,
@@ -57,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: 'user/users/:id',
         element: <UserForm key="userUpdate" />
+      },
+      {
+        path: 'user/:id/todos/new',
+        element: <TodoForm key="todoCreate" />
       }
     ]
   },
@@ -64,6 +71,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <GuestLayout/>,
     children: [
+      {
+        path: '/',
+        element: <Login/>
+      },
       {
         path: '/login',
         element: <Login/>
@@ -74,6 +85,7 @@ const router = createBrowserRouter([
       }
     ]
   },
+
   {
     path: "*",
     element: <NotFound/>

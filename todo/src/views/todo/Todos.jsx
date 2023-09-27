@@ -1,85 +1,89 @@
-import {useEffect, useState} from "react";
-import axiosClient from "../axios-client.js";
-import {Link} from "react-router-dom";
-import {useStateContext} from "../context/ContextProvider.jsx";
+import { useEffect, useState } from "react";
+import axiosClient from "../../axios-client.js";
+import { Link } from "react-router-dom";
+import { useStateContext } from "../../context/ContextProvider.jsx";
+import { useParams } from "react-router-dom";
 
-export default function Users() {
-  const [users, setUsers] = useState([]);
+export default function Todos() {
+  const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
-  const {setNotification} = useStateContext()
+  const { setNotification, id } = useStateContext();
+  const userId = id; // Assign 0 as the default value if id is null
 
   useEffect(() => {
-    getUsers();
-  }, [])
+    getTodosByUserId();
+  }, [userId]); // Trigger the effect when the `userId` changes
 
-  const onDeleteClick = user => {
-    if (!window.confirm("Are you sure you want to delete this user?")) {
-      return
+  const onDeleteClick = (todo) => {
+    if (!window.confirm("Are you sure you want to delete this todo?")) {
+      return;
     }
-    axiosClient.delete(`/users/${user.id}`)
+    axiosClient.delete(`/todos/${todo.id}`)
       .then(() => {
-        setNotification('User was successfully deleted')
-        getUsers()
-      })
-  }
+        setNotification('Todo was successfully deleted');
+        getTodosByUserId();
+      });
+  };
 
-  const getUsers = () => {
-    setLoading(true)
-    axiosClient.get('/users')
+  const getTodosByUserId = () => {
+    setLoading(true);
+    axiosClient.get(`/todos/user/${userId}`)
       .then(({ data }) => {
-        setLoading(false)
-        setUsers(data.data)
+        setLoading(false);
+        setTodos(data.data);
       })
       .catch(() => {
-        setLoading(false)
-      })
-  }
+        setLoading(false);
+      });
+  };
 
   return (
     <div>
-      <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
-        <h1>Users</h1>
-        <Link className="btn-add" to="/users/new">Add new</Link>
+      <div style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
+        <h1>Todos for User {userId}</h1>
+        <Link className="btn-add" to={`/user/${userId}/todos/new`}>Add New</Link>
       </div>
       <div className="card animated fadeInDown">
         <table>
           <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Create Date</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          {loading &&
-            <tbody>
             <tr>
-              <td colSpan="5" className="text-center">
-                Loading...
-              </td>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Due Date</th>
+              <th>Actions</th>
             </tr>
-            </tbody>
-          }
-          {!loading &&
+          </thead>
+          {loading && (
             <tbody>
-            {users.map(u => (
-              <tr key={u.id}>
-                <td>{u.id}</td>
-                <td>{u.name}</td>
-                <td>{u.email}</td>
-                <td>{u.created_at}</td>
-                <td>
-                  <Link className="btn-edit" to={'/users/' + u.id}>Edit</Link>
-                  &nbsp;
-                  <button className="btn-delete" onClick={ev => onDeleteClick(u)}>Delete</button>
+              <tr>
+                <td colSpan="6" className="text-center">
+                  Loading...
                 </td>
               </tr>
-            ))}
             </tbody>
-          }
+          )}
+          {!loading && (
+            <tbody>
+              {todos.map((todo) => (
+                <tr key={todo.id}>
+                  <td>{todo.id}</td>
+                  <td>{todo.title}</td>
+                  <td>{todo.description}</td>
+                  <td>{todo.status}</td>
+                  <td>{todo.due}</td>
+                  <td>
+                    <Link className="btn-edit" to={`/users/${userId}/todos/${todo.id}`}>Edit</Link>
+                    &nbsp;
+                    <button className="btn-delete" onClick={(ev) => onDeleteClick(todo)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
     </div>
-  )
+  );
 }
